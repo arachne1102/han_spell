@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TextListSaveActivity">
+
+    <!-- 제목 텍스트 -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저장소"
+        android:textAlignment="center"
+        android:textSize="50dp"
+        android:fontFamily="@font/kcchanbit"/>
+
+    <!-- 새로 만들기 버튼 -->
+    <android.widget.Button
+        android:id="@+id/btn_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/listbtn_style"
+        android:text="새로 만들기"
+        android:fontFamily="@font/kcchanbit"/>
+
+    <!-- 파일 목록을 표시할 ScrollView -->
+    <ScrollView
+        android:id="@+id/save_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/save_scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- 파일 항목들이 동적으로 추가될 예정 -->
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
