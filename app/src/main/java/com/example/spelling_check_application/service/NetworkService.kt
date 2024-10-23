@@ -7,7 +7,7 @@ import java.io.IOException
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 
-class NetworkService {
+class NetworkService(private val apiUrl: String) {
     private val client = OkHttpClient()
 
     // 데이터를 JSON 형식으로 변환할 데이터 클래스 정의
@@ -24,7 +24,7 @@ class NetworkService {
 
         // HTTP 요청 생성
         val request = Request.Builder()
-            .url("https://e81f-58-225-155-178.ngrok-free.app/check_spelling")  // FastAPI 서버의 ngrok 주소
+            .url(apiUrl)  // FastAPI 서버의 ngrok 주소
             .post(requestBody)
             .build()
 
@@ -36,15 +36,25 @@ class NetworkService {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseData = response.body?.string()
+                // 응답 상태 코드 확인 추가
+                if (!response.isSuccessful) {
+                    println("Request failed with code: ${response.code}")
+                    callback(null)
+                    return
+                }
 
-                try {
-                    // JSON 응답을 Gson을 사용해 객체로 변환
-                    val spellCheckResponse = gson.fromJson(responseData, SpellCheckResponse::class.java)
-                    callback(spellCheckResponse) // 성공 시 응답 객체를 콜백으로 반환
-                } catch (e: JsonSyntaxException) {
-                    e.printStackTrace() // JSON 파싱 오류 처리
-                    callback(null) // 오류 시 null 반환
+                response.body?.string()?.let { responseData ->
+                    try {
+                        // JSON 응답을 객체로 변환
+                        val spellCheckResponse = gson.fromJson(responseData, SpellCheckResponse::class.java)
+                        callback(spellCheckResponse)  // 성공 시 응답 객체를 콜백으로 반환
+                    } catch (e: JsonSyntaxException) {
+                        e.printStackTrace()
+                        callback(null)  // 파싱 오류 시 null 반환
+                    }
+                } ?: run {
+                    println("Response body is null")  // 응답 본문이 비어 있을 때 로그 출력
+                    callback(null)
                 }
             }
         })

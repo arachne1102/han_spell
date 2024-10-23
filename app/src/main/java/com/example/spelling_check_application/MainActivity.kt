@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             val inputText = editTextWrite.text.toString().trim()
 
             if (inputText.isNotEmpty()) {
-                val networkService = NetworkService()
+                val networkService = NetworkService(BuildConfig.API_URL)
                 networkService.sendTextToServer(inputText) { response ->
                     runOnUiThread {
                         if (response != null) {
