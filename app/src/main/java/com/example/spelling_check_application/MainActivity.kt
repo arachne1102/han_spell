@@ -1,6 +1,5 @@
 package com.example.spelling_check_application
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -179,8 +178,15 @@ class MainActivity : AppCompatActivity() {
         val writeLayout = findViewById<LinearLayout>(R.id.Write_Layout)
         val bodyTextLayout = findViewById<LinearLayout>(R.id.bodyText_Layout)
 
+        val writeLetterCount = findViewById<TextView>(R.id.letterCount_textview)
+        val bodytextLetterCount = findViewById<TextView>(R.id.bodyText_letterCount_textview)
+
+
         writeLayout.visibility = View.VISIBLE
         bodyTextLayout.visibility = View.INVISIBLE
+
+        writeLetterCount.visibility = View.VISIBLE
+        bodytextLetterCount.visibility = View.GONE
 
         val btnSend = findViewById<Button>(R.id.btn_send)
         val btnSave = findViewById<Button>(R.id.btn_save)
@@ -199,9 +205,14 @@ class MainActivity : AppCompatActivity() {
     private fun onClickBodytext(): Boolean {
         val writeLayout = findViewById<LinearLayout>(R.id.Write_Layout)
         val bodyTextLayout = findViewById<LinearLayout>(R.id.bodyText_Layout)
+        val writeLetterCount = findViewById<TextView>(R.id.letterCount_textview)
+        val bodytextLetterCount = findViewById<TextView>(R.id.bodyText_letterCount_textview)
 
         writeLayout.visibility = View.INVISIBLE
         bodyTextLayout.visibility = View.VISIBLE
+
+        writeLetterCount.visibility = View.GONE
+        bodytextLetterCount.visibility = View.VISIBLE
 
         val btnSend = findViewById<Button>(R.id.btn_send)
         val btnSave = findViewById<Button>(R.id.btn_save)
@@ -356,6 +367,11 @@ class MainActivity : AppCompatActivity() {
                 // 읽은 내용을 에디트 텍스트에 표시
                 val textView = findViewById<EditText>(R.id.editText_bodyText)
                 textView.setText(content)
+
+                // 글자 수 업데이트 코드 추가
+                val bodyTextCount = findViewById<TextView>(R.id.bodyText_letterCount_textview)
+                bodyTextCount.text = "글자수 : ${content.length}"
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(this, "파일 읽기 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()

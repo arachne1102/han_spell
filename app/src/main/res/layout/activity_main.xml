@@ -65,12 +65,6 @@
                 android:scrollHorizontally="false"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <TextView
-                android:id="@+id/bodyText_letterCount_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="글자수 :"
-                android:visibility="gone" />
         </LinearLayout>
 
     </FrameLayout>
@@ -85,15 +79,28 @@
 
 
         <TextView
+            android:id="@+id/bodyText_letterCount_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:fontFamily="@font/kcchanbit"
+            android:text="글자수 : 0"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
             android:id="@+id/letterCount_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_weight="1"
+            android:fontFamily="@font/kcchanbit"
             android:text="글자수 : 0"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:fontFamily="@font/kcchanbit"/>
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <LinearLayout
             android:layout_width="wrap_content"
